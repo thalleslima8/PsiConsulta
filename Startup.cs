@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using PsiConsulta.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace PsiConsulta
 {
@@ -23,7 +26,20 @@ namespace PsiConsulta
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            string connectionString = Configuration.GetConnectionString("DevConnection");
+
             services.AddControllersWithViews();
+            services.AddDbContext<PsiContext>(options => 
+                options.UseSqlServer(connectionString)
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +57,7 @@ namespace PsiConsulta
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();
             app.UseRouting();
 
             app.UseAuthorization();
