@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PsiConsulta.Context;
 using PsiConsulta.Models;
+using PsiConsulta.Models.Enums;
+using PsiConsulta.Models.ViewModels;
+using PsiConsulta.Services;
 
 namespace PsiConsulta.Controllers
 {
     public class PacientesController : Controller
     {
         private readonly PsiContext _context;
+        private readonly PacienteService pacienteService;
 
-        public PacientesController(PsiContext context)
+        public PacientesController(PsiContext context, PacienteService service)
         {
             _context = context;
+            pacienteService = service;
         }
 
         // GET: Pacientes
@@ -46,7 +51,20 @@ namespace PsiConsulta.Controllers
         // GET: Pacientes/Create
         public IActionResult Create()
         {
-            return View();
+            var list = pacienteService.FindAll();
+            var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
+
+            //Rever
+            string[] estados = {"AL", "AP", "AM", "BA", "CE", "DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS",
+                                    "RO","RR","SC","SP","SE","TO" };
+            List<string> ufs = new List<string>();
+            foreach (string uf in estados)
+            {
+                ufs.Add(uf);
+            }
+
+            var viewModel = new PacienteFormViewModel { Status = listStatus, Estados = ufs };
+            return View(viewModel);
         }
 
         // POST: Pacientes/Create

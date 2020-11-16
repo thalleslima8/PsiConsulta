@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using PsiConsulta.Context;
 using Microsoft.EntityFrameworkCore;
+using PsiConsulta.Services;
 
 namespace PsiConsulta
 {
@@ -41,6 +42,7 @@ namespace PsiConsulta
                 options.UseSqlServer(connectionString)
             );
             services.AddScoped<SeedingService>();
+            services.AddScoped<PacienteService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,7 +71,7 @@ namespace PsiConsulta
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Pacientes}/{action=Index}/{id?}");
             });
 
             serviceProvider.GetService<PsiContext>().Database.EnsureCreated();

@@ -10,25 +10,25 @@ namespace PsiConsulta.Models
         [Required]
         public int Id { get; set; }
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "Logradouro obrigatório!")]
         public string Logradouro { get; set; } = "";
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "Obrigatório!")]
         public int Numero { get; set; } = 0;
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório!")]
         public string Complemento { get; set; } = "";
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório!")]
         public string Bairro { get; set; } = "";
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório!")]
         public string Municipio { get; set; } = "";
         [DataMember]
-        [Required]
-        public string Estado { get; set; } = "";
+        [Required(ErrorMessage = "Campo obrigatório!")]
+        public string UF { get; set; } = "";
         [DataMember]
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório!")]
         public string Cep { get; set; } = "";
 
         public Endereco() { }
@@ -39,7 +39,7 @@ namespace PsiConsulta.Models
             Complemento = comp;
             Bairro = bairro;
             Municipio = mun;
-            Estado = est;
+            UF = est;
             Cep = cep;
         }
     }

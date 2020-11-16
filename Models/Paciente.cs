@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using PsiConsulta.Models.Enums;
 
 namespace PsiConsulta.Models
@@ -12,7 +13,9 @@ namespace PsiConsulta.Models
         }
 
         public List<Consulta> Consultas { get; set; }
+        [Required(ErrorMessage = "Telefone obrigatório!")]
         public string Telefone { get; set; } = "";
+        [Required(ErrorMessage = "Profissão obrigatório!")]
         public string Profissao { get; set; } = "";
         public Endereco Endereco { get; set; }
         public Psicologo Psicologo { get; set; }

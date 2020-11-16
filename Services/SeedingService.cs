@@ -31,7 +31,7 @@ namespace PsiConsulta.Context
                 Bairro = "Vila Maria Luiza",
                 Cep = "74.720-220",
                 Municipio = "Goiânia",
-                Estado = "Goiás"
+                UF = "GO"
             };
 
             Endereco end2 = new Endereco()
@@ -41,7 +41,7 @@ namespace PsiConsulta.Context
                 Bairro = "Sitios Santa Luzia",
                 Cep = "74.922-685",
                 Municipio = "Aparecida de Goiânia",
-                Estado = "Goiás"
+                UF = "GO"
             };
 
             Psicologo p1 = new Psicologo() { 
