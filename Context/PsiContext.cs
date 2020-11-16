@@ -43,7 +43,7 @@ namespace PsiConsulta.Context
             modelBuilder.Entity<Paciente>().Property(p => p.Status)
                 .HasConversion(
                     p => p.ToString(),
-                    p => (StatusPaciente)Enum.Parse(typeof(StatusPaciente), p));
+                    p => (StatusPaciente)Enum.Parse<StatusPaciente>(p));
                 
             
             modelBuilder.Entity<Consulta>().HasKey(p => p.Id);
@@ -52,8 +52,14 @@ namespace PsiConsulta.Context
             modelBuilder.Entity<Consulta>().Property(p => p.Status)
                 .HasConversion(
                     p => p.ToString(),
-                    p => (StatusConsulta)Enum.Parse(typeof(StatusConsulta), p));
+                    p => (StatusConsulta)Enum.Parse<StatusConsulta>(p));
 
         }
+
+        public DbSet<PsiConsulta.Models.Paciente> Paciente { get; set; }
+        public DbSet<PsiConsulta.Models.Psicologo> Psicologo { get; set; }
+        public DbSet<PsiConsulta.Models.Consulta> Consulta { get; set; }
+        public DbSet<PsiConsulta.Models.Prontuario> Prontuario { get; set; }
+        public DbSet<PsiConsulta.Models.Endereco> Endereco { get; set; }
     }
 }

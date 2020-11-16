@@ -4,6 +4,10 @@ namespace PsiConsulta.Models
 {
     public class Prontuario
     {
+        public Prontuario()
+        {
+        }
+
         public int Id { get; set; }
         public string HipoteseDiagnostico { get; set; }
         public string EvolucaoClinica { get; set; }
@@ -11,14 +15,14 @@ namespace PsiConsulta.Models
         public Paciente Paciente { get; set; }
         public Psicologo Psicologo { get; set; }
 
-        //public Prontuario(Paciente paciente, Psicologo psicologo)
-        //{
-        //    HipoteseDiagnostico = "";
-        //    EvolucaoClinica = "";
-        //    HistoricoClinico = "";
-        //    Paciente = paciente;
-        //    Psicologo = psicologo;
-        //}
+        public Prontuario(Paciente paciente, Psicologo psicologo)
+        {
+            HipoteseDiagnostico = "";
+            EvolucaoClinica = "";
+            HistoricoClinico = "";
+            Paciente = paciente;
+            Psicologo = psicologo;
+        }
 
         public Paciente GetPaciente()
         {

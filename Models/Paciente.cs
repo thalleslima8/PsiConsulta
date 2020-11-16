@@ -6,9 +6,13 @@ namespace PsiConsulta.Models
 {
     public class Paciente : Pessoa
     {
-        public Paciente() { }
+        public Paciente() 
+        {
+            Status = StatusPaciente.Ativo;
+        }
 
         public List<Consulta> Consultas { get; set; }
+        public string Telefone { get; set; } = "";
         public string Profissao { get; set; } = "";
         public Endereco Endereco { get; set; }
         public Psicologo Psicologo { get; set; }
