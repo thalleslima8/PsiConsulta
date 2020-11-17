@@ -19,7 +19,13 @@
                 @Html.DisplayNameFor(model => model.CPF)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Profissao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Psicologo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -37,7 +43,13 @@
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Profissao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Psicologo.Nome)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)

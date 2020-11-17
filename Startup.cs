@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using PsiConsulta.Context;
 using Microsoft.EntityFrameworkCore;
 using PsiConsulta.Services;
+using PsiConsulta.Repositories;
 
 namespace PsiConsulta
 {
@@ -42,7 +43,9 @@ namespace PsiConsulta
                 options.UseSqlServer(connectionString)
             );
             services.AddScoped<SeedingService>();
-            services.AddScoped<PacienteService>();
+            services.AddScoped<IPacienteRepository, PacienteRepository>();
+            services.AddScoped<IPsicologoRepository, PsicologoRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

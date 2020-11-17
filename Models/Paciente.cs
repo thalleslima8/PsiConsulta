@@ -19,6 +19,7 @@ namespace PsiConsulta.Models
         public string Profissao { get; set; } = "";
         public Endereco Endereco { get; set; }
         public Psicologo Psicologo { get; set; }
+        public int PsicologoId { get; set; }
         public StatusPaciente Status { get; set; }
         public Prontuario Prontuario { get; set; }
 

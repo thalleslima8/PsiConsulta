@@ -7,7 +7,7 @@ namespace PsiConsulta.Models.ViewModels
     {
         public Paciente Paciente { get; set; }
         public ICollection<StatusPaciente> Status { get; set; }
-        public List<string> Estados { get; set; }
+        public ICollection<Psicologo> Psicologos { get; set; }
 
         public PacienteFormViewModel()
         {
