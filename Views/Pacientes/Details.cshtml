@@ -1,42 +1,54 @@
-﻿@model PsiConsulta.Models.Paciente
+﻿@model PsiConsulta.Models.ViewModels.PacienteFormViewModel;
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
     <h4>Paciente</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Profissao)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Paciente.Nome):
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Profissao)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Paciente.Nome)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Paciente.CPF):
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Paciente.CPF)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CPF)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Paciente.Telefone):
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CPF)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Paciente.Telefone)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
+        <dt class="col-sm-2">
+            Profissão:
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Paciente.Profissao)
+        </dd>
+        <dt class="col-sm-2">
+            Psicólogo:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Paciente.Psicologo.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Paciente.Status):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Paciente.Status)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Paciente.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

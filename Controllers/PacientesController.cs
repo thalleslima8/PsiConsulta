@@ -19,7 +19,7 @@ namespace PsiConsulta.Controllers
         private readonly PsiContext _context;
         private readonly IPacienteRepository _pacienteRepository;
         private readonly IPsicologoRepository _psicologoRepository;
-        
+
 
         public PacientesController(PsiContext context, IPacienteRepository pacienteRepository, IPsicologoRepository psicologoRepository)
         {
@@ -31,7 +31,17 @@ namespace PsiConsulta.Controllers
         // GET: Pacientes
         public IActionResult Index()
         {
-            return View(_pacienteRepository.GetPacientes());
+            var listaPsicologos = _psicologoRepository.GetPsicologos();
+            var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
+            var listaPacientes = _pacienteRepository.GetPacientes();
+
+            var viewModel = new PacienteFormViewModel(_pacienteRepository)
+            {
+                Pacientes = listaPacientes,
+                Status = listStatus,
+                Psicologos = listaPsicologos
+            };
+            return View(viewModel);
         }
 
         // GET: Pacientes/Details/5
@@ -48,7 +58,15 @@ namespace PsiConsulta.Controllers
                 return NotFound();
             }
 
-            return View(paciente);
+            var listaPsicologos = _psicologoRepository.GetPsicologos();
+            var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
+            var viewModel = new PacienteFormViewModel(_pacienteRepository)
+            {
+                Paciente = paciente,
+                Status = listStatus,
+                Psicologos = listaPsicologos
+            };
+            return View(viewModel);
         }
 
         // GET: Pacientes/Create
@@ -58,7 +76,7 @@ namespace PsiConsulta.Controllers
             var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
 
 
-            var viewModel = new PacienteFormViewModel { Status = listStatus, Psicologos = listaPsicologos };
+            var viewModel = new PacienteFormViewModel(_pacienteRepository) { Status = listStatus, Psicologos = listaPsicologos };
             return View(viewModel);
         }
 
@@ -69,7 +87,8 @@ namespace PsiConsulta.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(/*[Bind("Profissao,Status,Id,CPF,Nome")]*/ Paciente paciente)
         {
-            if (ModelState.IsValid){
+            if (ModelState.IsValid)
+            {
                 _pacienteRepository.SavePaciente(paciente);
                 return RedirectToAction(nameof(Index));
             }
@@ -93,7 +112,7 @@ namespace PsiConsulta.Controllers
             var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
             var listaPsicologos = _psicologoRepository.GetPsicologos();
 
-            var viewModel = new PacienteFormViewModel { Status = listStatus, Paciente = paciente, Psicologos = listaPsicologos };
+            var viewModel = new PacienteFormViewModel(_pacienteRepository) { Status = listStatus, Paciente = paciente, Psicologos = listaPsicologos };
 
             return View(viewModel);
         }
@@ -105,7 +124,7 @@ namespace PsiConsulta.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Paciente paciente)
         {
-            
+
             if (id != paciente.Id)
             {
                 return NotFound();
