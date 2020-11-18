@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PsiConsulta.Models;
 using PsiConsulta.Models.Enums;
+using PsiConsulta.Models.Financiero;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,14 @@ namespace PsiConsulta.Context
 
             modelBuilder.Entity<Endereco>().HasKey(p => p.Id);
             
+            modelBuilder.Entity<Movimento>().HasKey(p => p.Id);
+
+            
+            modelBuilder.Entity<Carteira>().HasKey(p => p.Id);
+            modelBuilder.Entity<Carteira>()
+                .HasMany(p => p.Movimentos)
+                .WithOne(p => p.Carteira);
+            
             
             modelBuilder.Entity<Prontuario>().HasKey(p => p.Id);
             modelBuilder.Entity<Prontuario>().HasOne(p => p.Paciente).WithOne(p => p.Prontuario);
@@ -29,6 +38,8 @@ namespace PsiConsulta.Context
             modelBuilder.Entity<Psicologo>().HasKey(p => p.Id);
             modelBuilder.Entity<Psicologo>().HasMany(p => p.Pacientes).WithOne(p => p.Psicologo);
             modelBuilder.Entity<Psicologo>().HasMany(p => p.Consultas).WithOne(p => p.Psicologo);
+            modelBuilder.Entity<Psicologo>().HasOne(p => p.Carteira);
+
 
 
             modelBuilder.Entity<Paciente>().HasKey(p => p.Id);
@@ -61,5 +72,8 @@ namespace PsiConsulta.Context
         public DbSet<PsiConsulta.Models.Consulta> Consulta { get; set; }
         public DbSet<PsiConsulta.Models.Prontuario> Prontuario { get; set; }
         public DbSet<PsiConsulta.Models.Endereco> Endereco { get; set; }
+        public DbSet<PsiConsulta.Models.Financiero.Carteira> Carteira { get; set; }
+        public DbSet<PsiConsulta.Models.Financiero.Movimento> Movimento { get; set; }
+        
     }
 }

@@ -13,7 +13,7 @@
         <form asp-action="Create">
             <div class="text-danger"></div>
             <div class="form-group">
-                <div class="form-row col">
+                <div class="form-row">
                     <label asp-for="Paciente.Nome" class="control-label"></label>
                     <input asp-for="Paciente.Nome" class="form-control" />
                     <span asp-validation-for="Paciente.Nome" class="text-danger"></span>
@@ -110,7 +110,7 @@
                         <span asp-validation-for="Paciente.Psicologo" class="text-danger"></span>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="form-group">
@@ -123,6 +123,15 @@
 <div>
     <a asp-action="Index">Voltar</a>
 </div>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@if (TempData["testmsg"] != null)
+{
+    @Html.Raw(TempData["testmsg"])
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

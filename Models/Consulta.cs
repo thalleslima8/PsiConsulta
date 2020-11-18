@@ -14,13 +14,15 @@ namespace PsiConsulta.Models
         public DateTime Horario { get; set; }
         public Paciente Paciente { get; set; }
         public Psicologo Psicologo { get; set; }
+        public decimal Taxa { get; set; }
         public StatusConsulta Status { get; set; }
 
-        public Consulta(DateTime horario, Psicologo psicologo, Paciente paciente)
+        public Consulta(DateTime horario, Psicologo psicologo, Paciente paciente, decimal taxa)
         {
             Psicologo = psicologo;
             Paciente = paciente;
             Horario = horario;
+            Taxa = taxa;
             Status = StatusConsulta.Agendada;
         }
     }

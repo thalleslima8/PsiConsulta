@@ -15,9 +15,11 @@ namespace PsiConsulta.Models
         public int Id { get; set; }
         [DataMember]
         [Required(ErrorMessage = "CPF obrigatório!")]
+        [StringLength(11, MinimumLength = 11)]
         public string CPF { get; set; }
         [DataMember]
         [Required(ErrorMessage = "Nome obrigatório!")]
+        [StringLength(60, MinimumLength = 3)]
         public string Nome { get; set; }
 
        

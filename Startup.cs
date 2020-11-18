@@ -11,8 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using PsiConsulta.Context;
 using Microsoft.EntityFrameworkCore;
-using PsiConsulta.Services;
 using PsiConsulta.Repositories;
+using PsiConsulta.Services;
 
 namespace PsiConsulta
 {

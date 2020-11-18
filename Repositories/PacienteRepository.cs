@@ -14,14 +14,15 @@ namespace PsiConsulta.Repositories
         {
         }
 
-        public void SavePaciente(Paciente paciente)
+        public bool SavePaciente(Paciente paciente)
         {
             if (!DbSet.Where(p => p.CPF == paciente.CPF).Any())
             {
                 DbSet.Add(paciente);
                 _context.SaveChanges();
+                return true;
             }
-
+            return false;
 
         }
 

@@ -89,8 +89,12 @@ namespace PsiConsulta.Controllers
         {
             if (ModelState.IsValid)
             {
-                _pacienteRepository.SavePaciente(paciente);
-                return RedirectToAction(nameof(Index));
+                if (_pacienteRepository.SavePaciente(paciente))
+                {
+                    TempData["testmsg"] = "<script>alert('CPF já cadastrado!');</script>";
+                    return View(paciente);
+                }
+                    return RedirectToAction(nameof(Index));
             }
 
             //_pacienteRepository.SavePaciente(paciente);

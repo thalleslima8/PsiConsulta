@@ -6,6 +6,7 @@
         Inativo = 1,
         Pausado = 2,
         Bloqueado = 3,
-        Finalizado = 4
+        Inadimplente = 4,
+        Finalizado = 5
     }
 }

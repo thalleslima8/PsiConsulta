@@ -1,10 +1,12 @@
-﻿using PsiConsulta.Models;
+﻿using PsiConsulta.Context;
+using PsiConsulta.Models;
+using PsiConsulta.Models.Financiero;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PsiConsulta.Context
+namespace PsiConsulta.Services
 {
     public class SeedingService
     {
@@ -19,7 +21,8 @@ namespace PsiConsulta.Context
         {
             if (_context.Psicologo.Any() ||
                 _context.Paciente.Any() ||
-                _context.Consulta.Any())
+                _context.Consulta.Any() ||
+                _context.Carteira.Any())
             {
                 return; //DB está populado
             }
@@ -44,30 +47,34 @@ namespace PsiConsulta.Context
                 UF = "GO"
             };
 
-            Psicologo p1 = new Psicologo() { 
-                
-                Nome = "Jessica Lima",
-                CPF = "00011122233"
+            Psicologo p1 = new Psicologo() {
+
+                Nome = "Jessica Simonine",
+                CPF = "00011122233",
+                Carteira = new Carteira()
             };
             
             Psicologo p2 = new Psicologo() { 
                 
-                Nome = "Jessica Simonine",
-                CPF = "00011122244"
+                Nome = "Luana Priscila",
+                CPF = "00011122244",
+                Carteira = new Carteira()
             };
 
             Psicologo p3 = new Psicologo()
             {
                 
                 Nome = "Nathalia Montes",
-                CPF = "00011122255"
+                CPF = "00011122255",
+                Carteira = new Carteira()
             };
 
             Psicologo p4 = new Psicologo()
             {
                 
                 Nome = "Natália Veloso",
-                CPF = "00011122266"
+                CPF = "00011122266",
+                Carteira = new Carteira()
             };
 
             Paciente a1 = new Paciente()
@@ -116,10 +123,11 @@ namespace PsiConsulta.Context
 
             Consulta c1 = new Consulta()
             {
-                
+
                 Paciente = a1,
                 Psicologo = p1,
-                Horario = new DateTime(2020, 11, 15, 14, 00, 00)
+                Horario = new DateTime(2020, 11, 15, 14, 00, 00),
+                Taxa = 180
             };
 
             Consulta c2 = new Consulta()
@@ -127,7 +135,8 @@ namespace PsiConsulta.Context
                
                 Paciente = a2,
                 Psicologo = p2,
-                Horario = new DateTime(2020, 11, 16, 17, 30, 00)
+                Horario = new DateTime(2020, 11, 16, 17, 30, 00),
+                Taxa = 80
             };
 
             Consulta c3 = new Consulta()
@@ -135,7 +144,8 @@ namespace PsiConsulta.Context
                 
                 Paciente = a3,
                 Psicologo = p3,
-                Horario = new DateTime(2020, 11, 17, 08, 00, 00)
+                Horario = new DateTime(2020, 11, 17, 08, 00, 00),
+                Taxa = 150
             };
 
             Consulta c4 = new Consulta()
@@ -143,7 +153,8 @@ namespace PsiConsulta.Context
                 
                 Paciente = a4,
                 Psicologo = p4,
-                Horario = new DateTime(2020, 11, 15, 10, 00, 00)
+                Horario = new DateTime(2020, 11, 15, 10, 00, 00),
+                Taxa = 70
             };
 
             _context.Endereco.AddRange(end1, end2);

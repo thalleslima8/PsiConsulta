@@ -14,8 +14,10 @@ namespace PsiConsulta.Models
 
         public List<Consulta> Consultas { get; set; }
         [Required(ErrorMessage = "Telefone obrigatório!")]
+        [StringLength(14, MinimumLength = 8, ErrorMessage = "O número precisa ter no minimo 8 e no máximo 10 digitos")]
         public string Telefone { get; set; } = "";
         [Required(ErrorMessage = "Profissão obrigatório!")]
+        [StringLength(30, ErrorMessage = "Máximo de 30 caracteres")]
         public string Profissao { get; set; } = "";
         public Endereco Endereco { get; set; }
         public Psicologo Psicologo { get; set; }

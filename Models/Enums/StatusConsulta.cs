@@ -9,7 +9,8 @@ namespace PsiConsulta.Models.Enums
     {
         Agendada = 0,
         Realizada = 1,
-        Reagendada = 2,
-        Cancelada = 3
+        PendentePagamento = 2,
+        PagamentoOk = 3,
+        Cancelada = 4
     }
 }
