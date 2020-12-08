@@ -29,11 +29,11 @@ namespace PsiConsulta.Controllers
         }
 
         // GET: Pacientes
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var listaPsicologos = _psicologoRepository.GetPsicologos();
+            var listaPsicologos = await _psicologoRepository.GetPsicologos();
             var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
-            var listaPacientes = _pacienteRepository.GetPacientes();
+            var listaPacientes = await _pacienteRepository.GetPacientes();
 
             var viewModel = new PacienteFormViewModel(_pacienteRepository)
             {
@@ -45,20 +45,20 @@ namespace PsiConsulta.Controllers
         }
 
         // GET: Pacientes/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var paciente = _pacienteRepository.GetPacientes().FirstOrDefault(m => m.Id == id);
+            var paciente = await _pacienteRepository.GetPacientePorId(id);
             if (paciente == null)
             {
                 return NotFound();
             }
 
-            var listaPsicologos = _psicologoRepository.GetPsicologos();
+            var listaPsicologos = await _psicologoRepository.GetPsicologos();
             var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
             var viewModel = new PacienteFormViewModel(_pacienteRepository)
             {
@@ -70,9 +70,9 @@ namespace PsiConsulta.Controllers
         }
 
         // GET: Pacientes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var listaPsicologos = _psicologoRepository.GetPsicologos();
+            var listaPsicologos = await _psicologoRepository.GetPsicologos();
             var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
 
 
@@ -89,32 +89,24 @@ namespace PsiConsulta.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_pacienteRepository.SavePaciente(paciente))
-                {
-                    TempData["testmsg"] = "<script>alert('CPF já cadastrado!');</script>";
-                    return View(paciente);
-                }
-                    return RedirectToAction(nameof(Index));
+                _pacienteRepository.SavePaciente(paciente);
+               return RedirectToAction(nameof(Index));
             }
 
-            //_pacienteRepository.SavePaciente(paciente);
-            //return RedirectToAction(nameof(Index));
-
             return View(paciente);
-
         }
 
         // GET: Pacientes/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var paciente = _pacienteRepository.GetPacientePorId(id);
+            var paciente = await _pacienteRepository.GetPacientePorId(id);
             var listStatus = Enum.GetValues(typeof(StatusPaciente)).Cast<StatusPaciente>().ToList();
-            var listaPsicologos = _psicologoRepository.GetPsicologos();
+            var listaPsicologos = await _psicologoRepository.GetPsicologos();
 
             var viewModel = new PacienteFormViewModel(_pacienteRepository) { Status = listStatus, Paciente = paciente, Psicologos = listaPsicologos };
 
@@ -143,15 +135,14 @@ namespace PsiConsulta.Controllers
         }
 
         // GET: Pacientes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var paciente = await _context.Paciente
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var paciente = _pacienteRepository.GetPacientePorId(id);
             if (paciente == null)
             {
                 return NotFound();
@@ -163,17 +154,21 @@ namespace PsiConsulta.Controllers
         // POST: Pacientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var paciente = await _context.Paciente.FindAsync(id);
-            _context.Paciente.Remove(paciente);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            if (ModelState.IsValid)
+            {
+                await _pacienteRepository.RemovePaciente(id);
+                return RedirectToAction(nameof(Index));
+            }
 
-        private bool PacienteExists(int id)
-        {
-            return _context.Paciente.Any(e => e.Id == id);
+            var paciente = await _pacienteRepository.GetPacientePorId(id);
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return View(paciente);
         }
     }
 }

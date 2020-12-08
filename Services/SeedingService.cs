@@ -51,6 +51,8 @@ namespace PsiConsulta.Services
 
                 Nome = "Jessica Simonine",
                 CPF = "00011122233",
+                Telefone = "62 99242-6537",
+                Email = "jessicasimonine@gmail.com",
                 Carteira = new Carteira()
             };
             
@@ -58,6 +60,8 @@ namespace PsiConsulta.Services
                 
                 Nome = "Luana Priscila",
                 CPF = "00011122244",
+                Telefone = "62 93333-4444",
+                Email = "luana@gmail.com",
                 Carteira = new Carteira()
             };
 
@@ -66,6 +70,8 @@ namespace PsiConsulta.Services
                 
                 Nome = "Nathalia Montes",
                 CPF = "00011122255",
+                Telefone = "62 92222-3333",
+                Email = "montesnathalia@gmail.com",
                 Carteira = new Carteira()
             };
 
@@ -74,6 +80,8 @@ namespace PsiConsulta.Services
                 
                 Nome = "Natália Veloso",
                 CPF = "00011122266",
+                Telefone = "62 91111-2222",
+                Email = "velosonatalia@gmail.com",
                 Carteira = new Carteira()
             };
 

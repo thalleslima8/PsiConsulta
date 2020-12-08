@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PsiConsulta.Context;
 
 namespace PsiConsulta.Migrations
 {
     [DbContext(typeof(PsiContext))]
-    partial class PsiContextModelSnapshot : ModelSnapshot
+    [Migration("20201208185105_InfosPsicologos")]
+    partial class InfosPsicologos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

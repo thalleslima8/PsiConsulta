@@ -14,35 +14,33 @@ namespace PsiConsulta.Repositories
         {
         }
 
-        public bool SavePaciente(Paciente paciente)
+        public async Task SavePaciente(Paciente paciente)
         {
-            if (!DbSet.Where(p => p.CPF == paciente.CPF).Any())
+            var exist = await DbSet.Where(p => p.CPF == paciente.CPF).AnyAsync();
+            if (!exist)
             {
                 DbSet.Add(paciente);
                 _context.SaveChanges();
-                return true;
             }
-            return false;
-
         }
 
-        public List<Paciente> GetPacientes()
+        public async Task<List<Paciente>> GetPacientes()
         {
-            return _context.Paciente.ToList();
+            return await _context.Paciente.ToListAsync();
         }
 
-        public Paciente GetPacientePorId(int? id)
+        public async Task<Paciente> GetPacientePorId(int? id)
         {
-            return DbSet.Where(p => p.Id == id)
+            return await DbSet.Where(p => p.Id == id)
                 .Include(p => p.Endereco)
                 .Include(p => p.Psicologo)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
-        public void UpdatePaciente(Paciente paciente)
+        public async Task UpdatePaciente(Paciente paciente)
         {
-            
-            if(!DbSet.Where(p => p.Id == paciente.Id).Any())
+            var exist = await DbSet.Where(p => p.Id == paciente.Id).AnyAsync();
+            if(!exist)
             {
                 throw new NullReferenceException("Paciente não encontrado!");
             }
@@ -56,6 +54,26 @@ namespace PsiConsulta.Repositories
             {
                 throw new Exception("DbUpdateConcurrencyException: " + e.Message);
             }
+        }
+
+        public async Task RemovePaciente(int id)
+        {
+            if (await PacienteExists(id))
+            {
+                var paciente = await DbSet.Where(p => p.Id == id).FirstOrDefaultAsync();
+                _context.Remove(paciente);
+                _context.SaveChanges();
+            }
+
+        }
+
+        public async Task<bool> PacienteExists(int id)
+        {
+            if (await DbSet.Where(p => p.Id == id).FirstOrDefaultAsync() != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
